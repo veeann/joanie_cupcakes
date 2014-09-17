@@ -1,0 +1,10 @@
+<html>
+<head> <title>LOGIN</title></head>
+<body>
+<h1>Expense Menu</h1>
+<div id="text boxeses">
+	<a href="Addexpense.html"><button>Add Expense</button></a><br>
+		<a href="Viewexpense.html"><button>View Expenses</button></a>
+</div>
+</body>
+</html>
