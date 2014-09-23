@@ -55,12 +55,12 @@ CREATE TABLE IF NOT EXISTS `Joanie`.`Payment` (
     FOREIGN KEY (`Order_order_id`)
     REFERENCES `Joanie`.`Order` (`order_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Payment_Report1`
     FOREIGN KEY (`Report_report_id`)
     REFERENCES `Joanie`.`Report` (`report_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `Joanie`.`SalaryExpense` (
     FOREIGN KEY (`Report_report_id`)
     REFERENCES `Joanie`.`Report` (`report_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -120,12 +120,12 @@ CREATE TABLE IF NOT EXISTS `Joanie`.`Attendance` (
     FOREIGN KEY (`SalaryExpense_salary_expense_id` , `SalaryExpense_Report_report_id`)
     REFERENCES `Joanie`.`SalaryExpense` (`salary_expense_id` , `Report_report_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Attendance_Employee1`
     FOREIGN KEY (`Employee_employee_id`)
     REFERENCES `Joanie`.`Employee` (`employee_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `Joanie`.`Expense` (
     FOREIGN KEY (`Report_report_id`)
     REFERENCES `Joanie`.`Report` (`report_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
