@@ -5,3 +5,7 @@ To do:
  - Populate Database
  - Connect Database and Website Design
  - Website Graphics/Logo/Pictures
+
+Information:
+ - Zend Framework
+ - Bootstrap 3
