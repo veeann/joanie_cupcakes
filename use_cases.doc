@@ -1,0 +1,627 @@
+Use Cases
+
+Project Name: Cupcake System
+Client: Joanie’s Cupcakes
+Group Name: Mighty Morphin’ Flower Arrangers
+Members:
+	Vermille Saw
+	Gilo Dancel
+	Adrian Tan
+	Joel Gavino
+	Jef Opinion
+
+Date: August 12, 2014 
+
+Table of Contents
+
+USE CASE LIST	………………………………………………………….............…	3
+1	ORDER PROCESS	…………………..…………………………………...........	3
+	1.1	FEATURE PROCESS FLOW / USE CASE MODEL	…...........................	3
+	1.2	PLACE ORDER ………………………..……………...………………….	4
+1.3	DEPOSIT …..…………………..……………………...………………….	4
+1.4	VIEW PLACED ORDER…………………..…………...………………….	5
+1.5	SEND QUOTATION…………………………………...………………….	6
+1.6	VIEW ORDER PROCESSING NOTICES………………..……………….	7
+2	SALARY COMPUTATION	………………………………..………….….…….	8
+	2.1	FEATURE PROCESS FLOW / USE CASE MODEL	………....................	8
+	2.2	SIGN ATTENDANCE	…………………..……………...………………….	8
+2.3	VIEW PAYSLIP…………………..…………………….........…………….	9
+2.4	SEND PAYSLIP ……………………..………………...………………….	10
+3	RECORDS PROCESSING	……………………………………………………..	11
+	3.1	FEATURE PROCESS FLOW / USE CASE MODEL	…...........................	11
+3.2	INPUT ORDER RECORD …………………..………...………………….	11
+3.3	INPUT QUERY ….……………..……………………...………………….	12
+3.4	VIEW ORDER RECORD …………………..…………………….....…….	13
+3.5	INPUT EXPENSES …………………..…………………..……………….	13
+3.6	VIEW SALES RECORD …...…………………..………………………….	14
+3.7	VIEW SALARY RECORD ………………..……………………………….	15
+4	SYSTEM ROUTINES ………………………………………………….………..	16
+	4.1	FEATURE PROCESS FLOW / USE CASE MODEL	…...........................	16
+	4.2	SEND PERIOD SALES RECORD ………………..…...………...….........	16
+	4.3	CHECK CREDENTIALS ……….……………………...………...….........	17
+5	ACCOUNTS MANAGEMENT ………………………..………………………..	18
+	5.1	FEATURE PROCESS FLOW / USE CASE MODEL	…...........................	18
+	5.2	LOGIN …………………………..……………………...………...….........	19
+	5.3	ADD EMPLOYEE ACCOUNT ….……………………...………...….........	29
+	5.4	UPDATE EMPLOYEE ACCOUNT ..…………………...………...….........	20
+
+
+ 
+
+Use Case List
+Use Case ID	Primary Actor	Use Cases
+1	Customer, Employee, Administrator	1.2, 1.3, 1.4, 1.5, 1.6, 1.7
+2	Employee, Administrator	2.2, 2.3, 2.4
+3	Employee, Administrator	3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 3.10
+4	System	4.2, .43
+5	Employee, Administrator	5.2, 5.3, 5.4
+
+
+
+1	Order Process
+
+1.1	 Use Case Diagram 
+ 
+
+
+
+
+
+1.2	Place Order
+Use Case ID:	1.2
+Use Case Name:	Place Order
+Created By:	Joel Gavino	Last Updated By:	Joel Gavino
+Date Created:	August 11, 2014	Last Revision Date:	August 11, 2014
+Actors:	Customer
+Description:	(Allows the customer to place orders)
+
+The use case begins when the user decides to place an order through the system. The customer is then allowed to describe products to order and how many of each he/she would like to purchase. This order (in the form of a Placed Order Notice) is stored into the database to be retrieved and reviewed by an employee. 
+Trigger:	The customer accesses the Place Order feature
+Preconditions:	The system must be in a state ready to store and retrieve information about placed orders.
+Postconditions:	The customer’s Order Form is updated into a Placed Order Notice to later be retrieved by an employee.
+Normal Flow:	1. (Actor) Begins when the customer decides to place an order
+2. (Actor) Customer selects the products to be purchased and inputs the desired quantity
+3. (System) System stores and sends the order form to an employee in the form of a Placed Order Notice
+
+Alternative Flows:	3a. In step 3 of the normal flow, if Placed Order Notice is rejected by the assessing employee.
+1. (System) System releases an error message.
+2. (System) Use case ends.
+Exceptions:	-	Power failure or system error before the final step, cancel process
+Includes:	
+Frequency of Use:	Every time a customer orders
+Special Requirements:	
+Assumptions:	
+Notes and Issues:	
+
+
+1.3	 Deposit
+Use Case ID:	1.3
+Use Case Name:	Deposit
+Created By:	Joel Gavino	Last Updated By:	Joel Gavino
+Date Created:	August 11, 2014	Last Revision Date:	August 11, 2014
+Actors:	Customer
+Description:	(Allows the customer to confirm his/her payment deposit)
+
+The use case occurs when the user sends a deposit for confirmation of his/her order. The deposit is then validated and the system finalizes the previous PO by updating it into an Order Processing Notice (OPN) signifying that the ordered product is ready to be made.
+Trigger:	Confirmation by payment from the Customer
+Preconditions:	1. The system must be in a state ready to update current information
+2. The customer must have had received a quotation for the order.
+Postconditions:	1. The customer successfully deposits an initial or full amount.
+2. An Order Processing Notice is sent to employees
+3. The order may not be made.
+Normal Flow:	1. (Actor) The use case begins when the customer sends a deposit confirmation for his/her previous order
+2. (System) Once the deposit is validated and confirmed, an order processing notice is sent to employees.
+Alternative Flows:	
+Exceptions:	-	Power failure or system error before the final step, cancel process
+Includes:	
+Frequency of Use:	Every time a customer sends a deposit for an order
+Special Requirements:	
+Assumptions:	
+Notes and Issues:	1. No deposit is sent, thus the PO remains a PO
+
+
+1.4	 View Placed Order
+Use Case ID:	1.4
+Use Case Name:	View PO
+Created By:	Joel Gavino	Last Updated By:	Joel Gavino
+Date Created:	August 11, 2014	Last Revision Date:	August 11, 2014
+Actors:	Employee, Admin
+Description:	(Allows the user to view all existing (history and pending) pre-orders)
+
+The use case starts when the user accesses the View Placed Order function. The system produces a list of all incoming orders (Placed Orders that have not been assessed)
+Trigger:	View Placed Order function trigger
+Preconditions:	The system must be in a state ready to access stored information regarding all POs
+Postconditions:	The system retrieves all stored information regarding incoming orders
+Normal Flow:	1. (Actor) The user triggers the View POs function
+2. (System) The system retrieves all previously stored preorders
+3. (System) The system outputs all information
+Alternative Flows:	
+Exceptions:	-	Power failure or system error before the final step, cancel process
+Includes:	4.3 – Check Credentials
+Frequency of Use:	As often as necessary
+Special Requirements:	
+Assumptions:	The user is a legitimate, verified employee
+Notes and Issues:	
+
+
+1.5	 Send Quotation
+Use Case ID:	1.5
+Use Case Name:	Send Quotation
+Created By:	Joel Gavino	Last Updated By:	Joel Gavino
+Date Created:	August 11, 2014	Last Revision Date:	August 11, 2014
+Actors:	Employee, Admin
+Description:	(Allows the user to send a quotation to the customer)
+
+The use case starts when the user assesses an existing Placed Order (after receiving a Placed Order Notice). The user estimates the total price and sends it into the system. The system produces a formatted Quotation. 
+Trigger:	Employee views Placed Order Notices
+Preconditions:	1. The system must be in a state ready to retrieve stored  information and update databases on preorders
+2. There are incoming orders to be assessed.
+Postconditions:	A Quotation is made by the Employee and sent to the customer.
+Normal Flow:	1. (Actor) The use case begins when the user retrieves a stored Place Order
+2. (Actor) The actor stores his assessment into the system
+3. (System) System formats the assessment into a Quotation
+4. (System) System sends the Quotation to customer
+Alternative Flows:	2a. In step 2 of the normal flow, should the order be rejected by the assessing employee
+1. (System) System sends a rejection message to customer
+Exceptions:	-	Power failure or system error before the final step, cancel process
+Includes:	4.3 – Check Credentials
+Frequency of Use:	For every Placed Order Notice
+Special Requirements:	
+Assumptions:	The user is a legitimate, verified employee
+Notes and Issues:	
+
+
+1.6	 View Order Processing Notices
+Use Case ID:	1.6
+Use Case Name:	View Order Processing Notices
+Created By:	Joel Gavino	Last Updated By:	Joel Gavino
+Date Created:	August 11, 2014	Last Revision Date:	August 11, 2014
+Actors:	Employee, Admin
+Description:	(Allows the user to view current order processing notices)
+
+The use case occurs when the user triggers the View OPNs feature. The system produces a list of all existing Order Processing Notices (orders with settled deposits, signifying that the ordered products are ready to be made)
+Trigger:	Employee accesses the View OPNs feature
+Preconditions:	The system must be in a state ready to access stored information regarding all OPNs
+Postconditions:	The system retrieves all stored information regarding all OPNs
+Normal Flow:	1. (Actor) The user triggers the View OPNs function
+2. (System) The system retrieves all previously stored notices
+3. (System) The system outputs all information
+Alternative Flows:	
+Exceptions:	-	Power failure or system error before the final step, cancel process
+Includes:	4.3 – Check Credentials
+Frequency of Use:	As often as necessary
+Special Requirements:	
+Assumptions:	The user is a legitimate, verified employee
+Notes and Issues:	
+
+
+
+
+2	Salary Computation
+
+2.1 Use Case Diagram
+ 
+
+2.2 Sign Attendance
+Use Case ID:	2.2
+Use Case Name:	Sign Attendance
+Created By:	Jef Opinion	Last Updated By:	Jef Opinion
+Date Created:	August 11, 2014	Last Revision Date:	August 11, 2014
+Actors:	Employee
+Description:	This use case is for employee attendance. The use case begins when the employee logs in and checks attendance for his work day.
+Trigger:	Employee signs in for a work day.
+Preconditions:	-The system is in a state in which it can be accessed by an employee
+Postconditions:	-The system records the attendance of the employee
+Normal Flow:	1)	Employee logs in the system
+2)	The system verifies the account
+3)	Employee signs attendance for the day
+4)	The system records the information
+Alternative Flows:	
+Exceptions:	2a. In step 2 of normal flow, if account is invalid
+1)	The employee inputs correct login
+2)	System verifies account
+3)	Use Case returns to step 3 of normal flow
+Includes:	
+Frequency of Use:	For every workday per employee
+Special Requirements:	
+Assumptions:	The employee finishes the work day.
+Notes and Issues:	
+
+
+2.3 View Payslip
+Use Case ID:	2.3
+Use Case Name:	View Payslip
+Created By:	Jef Opinion	Last Updated By:	Jef Opinion
+Date Created:	August 11, 2014	Last Revision Date:	August 11, 2014
+Actors:	Employee
+Description:	This use case is for employees who want to view their payslips. The use case starts when the employee logs in the system and opts to view his payslips for a particular period, in which case the system outputs the payslips of the employee.
+Trigger:	The employee views his payslips through the system
+Preconditions:	- The system is in a state in which it can be accessed by an employee
+Postconditions:	- The system has accessed the payslip records of the corresponding employee
+Normal Flow:	1)	Employee logs in the system
+2)	System verifies the account
+3)	Employee opts to view his payslips for a particular period
+4)	System outsputs the payslip of the employee
+Alternative Flows:	
+Exceptions:	2a. In step 2 of normal flow, if account is invalid
+4)	The employee inputs correct login
+5)	System verifies account
+6)	Use Case returns to step 3 of normal flow
+
+4a. In step 4 of normal flow, if Employee has yet to receive any payslip for that particular period 
+1)	The system outputs a notification informing the employee of this situation.
+2)	Use case ends.
+Includes:	
+Frequency of Use:	For every payday per employee
+Special Requirements:	
+Assumptions:	The employee has a salary
+Notes and Issues:	
+
+
+2.4 Send Payslip
+Use Case ID:	2.4
+Use Case Name:	Send Payslip
+Created By:	Jef Opinion	Last Updated By:	Jef Opinion
+Date Created:	August 11, 2014	Last Revision Date:	August 11, 2014
+Actors:	Administrator
+Description:	This use case is for sending the payslips of employees through the system. The use case begins when the administrator logs in the system and opts to send the payslips of his or her employees.
+Trigger:	The administrator sends employee payslips through the system
+Preconditions:	-The system is in a state in which it can be accessed by an administrator
+Postconditions:	-The payslips of corresponding employees are updated in the system and sent to employees (allowing them to view these)
+Normal Flow:	1)	The administrator logs in the system
+2)	The system verifies the account
+3)	The administrator opts to sends the employees' payslips
+4)	The system computes salaries
+5)	The system records the employees' salaries
+6)	The system send the payslips to employees
+Alternative Flows:	 
+Exceptions:	2a. In step 2 of normal flow, if account is invalid
+1)	The administrator inputs correct login
+2)	System verifies account
+3)	Use Case returns to step 3 of normal flow
+Includes:	
+Frequency of Use:	For every payday
+Special Requirements:	An administrator's account
+Assumptions:	The administrator's account is authorized to give payment slips
+Notes and Issues:	
+
+
+
+
+3	Records Processing
+
+3.1 Use Case Diagram 
+ 
+
+3.2 Input Order Record
+Use Case ID:	3.3
+Use Case Name:	Input order record
+Created By:	Adrian tan	Last Updated By:	Adrian Tan
+Date Created:	Aug 11 2014	Last Revision Date:	Aug 11 2014
+Actors:	Admin(primary) Employee (primary)
+Description:	Allows the user to add an Order Record for a finished order.
+Trigger:	An order was successfully completed and finished.
+Preconditions:	There was an order for which the customer has given a deposit and the employees have processed that is now finished.
+Postconditions:	1.	A record is added to the database
+2.	The income for this finished order is added to the database.
+3.	A Finished Order Notice is sent to the customer.
+Normal Flow:	1.	Actor inputs order information 
+2.	Order record is added
+Alternative Flows:	none
+Exceptions:	1a. In step 1 of the normal flow, information is invalid
+1.	Actor will input correct information
+2.	Use case returns to step 2 of normal flow
+Includes:	4.3 (Check Credentials)
+Frequency of Use:	For every finished order
+Special Requirements:	 none
+Assumptions:	 All required information will be inputted
+Notes and Issues:	none
+
+
+
+3.3 Input Query
+Use Case ID:	3.4
+Use Case Name:	Input a search query
+Created By:	Adrian Tan	Last Updated By:	Adrian Tan
+Date Created:	Aug 11 2014	Last Revision Date:	Aug 11 2014
+Actors:	Admin(primary) Employee (primary)
+Description:	The user input search information and the system searches for the data that need to be searched for.
+Trigger:	Admin or Employee runs this part of the software
+Preconditions:	 none
+Postconditions:	1.	the data  that is to be searched for is returned to the user.
+2.	The data that is to be searched for cant be found.  (if unsuccessful)
+Normal Flow:	1.	The user inputs a query to be searched for
+2.	The system returns a single or a set of data to the user
+Alternative Flows:	2a No data is found.
+      1. system asks the user for another query
+      2. user declines
+2b No data is found
+1.	System asks the user for another query
+2.	User accepts.
+3.	System goes back to step 1.
+Exceptions:	none 
+Includes:	4.3 (Check Credentials)
+Frequency of Use:	As often as necessary (estimate: 10 per day)
+Special Requirements:	The search is guided by dropdown menus and check boxes so the type of query is always valid.
+Assumptions:	none
+Notes and Issues:	none
+
+
+3.4 View Order Record
+Use Case ID:	3.5
+Use Case Name:	View order record
+Created By:	Adrian Tan	Last Updated By:	Adrian Tan
+Date Created:	Aug 11 2014	Last Revision Date:	Aug 11 2014
+Actors:	Admin(primary) Employee (primary)
+Description:	shows the order record that need to be viewed
+Trigger:	Admin or Employee runs this part of the software
+Preconditions:	none
+Postconditions:	The record to be viewed is shown to the Actor
+Normal Flow:	1.	The actor searches for the record he wants via input query
+2.	The actor chooses the record he wants among the queries.
+3.	The record is shown to the actor.
+Alternative Flows:	2a No order record is found.
+      1. system asks the user for another query
+      2. user declines
+2b No order record is found
+1.	System asks the user for another query
+2.	User accepts.
+3.	System goes back to step 1.
+1a The actor wants to search for all order records
+1.	The system outputs all order records
+2.	Use case ends
+Exceptions:	none
+Includes:	4.3 (Check Credentials)
+Frequency of Use:	As often as necessary (estimate: 5 per day)
+Special Requirements:	none
+Assumptions:	none
+Notes and Issues:	none
+
+
+3.5 Input Expenses
+Use Case ID:	3.6
+Use Case Name:	Input expenses
+Created By:	Adrian Tan	Last Updated By:	Adrian Tan
+Date Created:	Aug 11	Last Revision Date:	Aug 11 2014
+Actors:	Administrator(primary)
+Description:	Administrator inputs the expenses of the business and it is stored in the database
+Trigger:	Admins accesses this part of the software
+Preconditions:	none
+Postconditions:	1.	A business expense is added
+2.	A business expense is not added.
+Normal Flow:	1.	Administrator runs the input expense part of the software
+2.	Admin inputs the expense
+3.	The expense is stored in the database
+Alternative Flows:	none
+Exceptions:	        1. The admin cancels the inputting at step 2.
+        2. The system scraps the data being inputted.
+Includes:	4.3 (Check Credentials)
+Frequency of Use:	For every order and every bills payment
+Special Requirements:	none
+Assumptions:	The administrator wont input a 0 or a negative number for the expense.
+Notes and Issues:	none
+
+
+
+3.6 View Sales Record
+Use Case ID:	3.9
+Use Case Name:	View Salary
+Created By:	Adrian Tan	Last Updated By:	Adrian Tan
+Date Created:	Aug 11 2014	Last Revision Date:	Aug 11 2014
+Actors:	Admin(primary) Employee (primary)
+Description:	shows the salary that need to be viewed
+Trigger:	Admin runs this part of the software
+Preconditions:	
+Postconditions:	The salary to be viewed is shown to the Actor
+Normal Flow:	1.   The actor searches for the record he want via input query
+2.   The actor chooses the record he wants among the queries.
+1.	The record is shown to the actor.
+Alternative Flows:	2a No salary record is found.
+      1. system asks the user for another query
+      2. user declines
+2b No salary record is found
+1.	System asks the user for another query
+2.	User accepts.
+3.	System goes back to step 1.
+1a The actor wants to search for all sales records
+1.	The system outputs all sales records
+2.	Use case ends
+Exceptions:	none
+Includes:	4.3 (Check Credentials)
+Frequency of Use:	As often as necessary (estimate 5 per day)
+Special Requirements:	none
+Assumptions:	none
+Notes and Issues:	none
+
+
+3.7 View Salary Record
+Use Case ID:	3.10
+Use Case Name:	View sales
+Created By:	Adrian Tan	Last Updated By:	Adrian Tan
+Date Created:	Aug 11, 2014	Last Revision Date:	Aug 11 2014
+Actors:	Admin(primary) Employee (primary)
+Description:	shows the sale that need to be viewed
+Trigger:	Admin runs this part of the software
+Preconditions:	
+Postconditions:	The sale to be viewed is shown to the Actor
+Normal Flow:	1.   The actor searches for the record he want via input query
+2.   The actor chooses the record he wants among the queries.
+3.   The record is shown to the actor.
+Alternative Flows:	2a No sale record is found.
+      1. system asks the user for another query
+      2. user declines
+2b No sale record is found
+1.	System asks the user for another query
+2.	User accepts.
+3.	System goes back to step 1.
+1a The actor wants to search for all salary records
+1.	The system outputs all salary records
+2.	Use case ends
+Exceptions:	none
+Includes:	4.3 (Check Credentials)
+Frequency of Use:	As often as necessary (estimate: 5 per day)
+Special Requirements:	none
+Assumptions:	none
+Notes and Issues:	none
+
+
+
+
+4	System Routines
+
+4.1 Use Case Diagram
+ 
+
+4.2 Send Period Sales Record
+Use Case ID:	4.2
+Use Case Name:	Send Period Sales Record
+Created By:	Vermille Saw	Last Updated By:	Vermille Saw
+Date Created:	August 11, 2014	Last Revision Date:	August 11, 2014
+Actors:	System
+Description:	The system outputs the business sales (including income, expenses, and profit) for a set period of time and sends a copy to a given email address.
+Trigger:	This action is done by the system for every regular period (i.e. weekly, monthly, yearly). 
+Preconditions:	1.	There is a set email address to which the report is sent.
+2.	There is a set regular period for which the sales report is outputted and emailed.
+Postconditions:	1.	The system outputs the business sales for the corresponding period.
+2.	The business sales report is sent to the set email address.
+3.	A new sales record is added to the database.
+Normal Flow:	1.	System fetches all income records from the starting date up to the end date of the period.
+2.	System adds all income.
+3.	System fetches all expense records from the starting date up to the end date of the period.
+4.	System adds all expenses.
+5.	System subjects total expenses from total income to get profit.
+6.	System adds a new sales record.
+7.	System outputs the information in a set format.
+8.	System sends information to set email address.
+Alternative Flows:	N/A
+Exceptions:	2a. In step 2 of the normal flow, if there is no income to add
+1.	Set total income to zero (0).
+2.	Use Case returns to Step 3 of normal flow.
+4a. In step 4 of the normal flow, if there is no expense to add
+1.	Set total expense to zero (0).
+2.	Use Case returns to Step 5 of normal flow.
+Includes:	None
+Frequency of Use:	Once every set period (weekly, monthly, bimonthly, yearly, etc. or a combination: weekly and monthly, monthly and yearly, etc.)
+Special Requirements:	N/A
+Assumptions:	A copy of the sales report is sent to only one email address.
+Notes and Issues:	N/A
+
+
+4.3 Check Credentials
+Use Case ID:	4.3
+Use Case Name:	Check Credentials
+Created By:	Vermille Saw	Last Updated By:	Vermille Saw
+Date Created:	August 11, 2014	Last Revision Date:	August 11, 2014
+Actors:	System
+Description:	The system checks if the user trying to do the previous action is logged in as an authorized employee or as the administrator.
+Trigger:	The user to trying to do an action restricted only to certain users. The following Use Cases trigger this use case: View Placed Order, Send Quotation, View Order Processing Notice, Input Order Record, Input Query, View Order Record, Input Expenses, View Salary Records, View Sales Records.
+Preconditions:	1.	User is logged in
+Postconditions:	1.	The system either allows or denies continuation of action.
+2.	User either finishes the action or is unable to do it.
+Normal Flow:	1.	User attempts to do restricted action.
+2.	System checks the type of user (Employee or Administrator).
+3.	System compares type of user logged in to type of user permitted to action. 
+4.	If equal, continue action. Otherwise, deny action.
+5.	If action denied, user to sent to main menu / home page.
+Alternative Flows:	N/A
+Exceptions:	N/A
+Includes:	N/A
+Frequency of Use:	Every time an employee or administrator does any of the above mentioned use cases.
+Special Requirements:	There must be a main menu / home page accessible to all types of users in the event of action denial.
+Assumptions:	N/A
+Notes and Issues:	N/A
+
+
+
+
+5	Accounts Management
+
+5.1 Use Case Diagram
+ 
+
+5.2 Login
+Use Case ID:	5.2
+Use Case Name:	Login
+Created By:	Vermille Saw	Last Updated By:	Vermille Saw
+Date Created:	August 11, 2014	Last Revision Date:	August 11, 2014
+Actors:	Administrator, Employee
+Description:	The administrator or employee logs into the system, allowing them more action options based on user type.
+Trigger:	The administrator or employee wants to log in.
+Preconditions:	1.	User has a valid account.
+Postconditions:	1.	If successful, user is logged in and has access to permitted actions.
+2.	If not, user is given an error message and prompted to try logging in again.
+Normal Flow:	1.	User inputs login credentials.
+2.	User submits them.
+3.	System checks credentials with database.
+4.	User is logged in.
+Alternative Flows:	N/A
+Exceptions:	3a. In step 3 of the normal flow, if user submitted invalid/inexistent login credentials.
+1.	Login is denied.
+2.	System outputs error message.
+3.	User is prompted to input login credentials again.
+4.	User inputs correct login credentials.
+5.	User submits them.
+6.	Use Case returns to step 4 of normal flow.
+Includes:	N/A
+Frequency of Use:	Every time the employee or the administrator is working.
+Special Requirements:	There must be a database of valid users and their login credentials.
+Assumptions:	N/A
+Notes and Issues:	1.	Usernames and passwords are alphanumeric.
+2.	Passwords have 6-10 characters.
+
+
+5.3 Add Employee Account
+Use Case ID:	5.3
+Use Case Name:	Add Employee Account
+Created By:	Vermille Saw	Last Updated By:	Vermille Saw
+Date Created:	August 11, 2014	Last Revision Date:	August 11, 2014
+Actors:	Administrator
+Description:	Allows the administrator to create a new employee account.
+Trigger:	The administrator wants to create a new employee account (especially when new employees are hired).
+Preconditions:	N/A
+Postconditions:	1.	A new employee account is added to the database.
+Normal Flow:	1.	Administrator inputs employee information.
+2.	Administrator inputs login credentials.
+3.	Information is submitted to system.
+4.	System adds new account to database.
+Alternative Flows:	N/A
+Exceptions:	3a. In step 3 of the normal flow, if employee information and/or login credentials are duplicate or invalid.
+1.	Administrator inputs new employee information.
+2.	Administrator inputs new and correct login credentials.
+3.	Information is submitted to the system.
+4.	Use case returns to step 4 of the normal flow.
+Includes:	N/A
+Frequency of Use:	Every time a new employee is hired.
+Special Requirements:	Database of user accounts must exist.
+Assumptions:	There are no duplicate employees and login credentials.
+Notes and Issues:	1.	Usernames and Passwords are alphanumeric.
+2.	Passwords have 6-10 characters.
+
+
+5.4 Update Employee Account
+Use Case ID:	5.4
+Use Case Name:	Update Employee Account
+Created By:	Vermille Saw	Last Updated By:	Vermille Saw
+Date Created:	August 11, 2014	Last Revision Date:	August 11, 2014
+Actors:	Administrator
+Description:	Allows the administrator to edit and update the information in an employee’s user account.
+Trigger:	Administrator wants to update user information because of changes (e.g. upgrade permission from employee to administrator or vice versa, employee leaves and account is disabled, etc.)
+Preconditions:	1.	The employee account to be updated must exist.
+Postconditions:	1.	The employee account information are updated.
+Normal Flow:	1.	Administrator opens account information of employee.
+2.	Administrator changes information.
+3.	Administrator saves new information.
+4.	Employee’s account has new information.
+Alternative Flow 1: Disabling an Account	3a. In step 3 of the normal flow, if account status is set to ‘disabled’ in new information
+1.	That particular employee account is removed from the database.
+2.	Use Case ends.
+Exceptions:	3a. In step 3 of the normal flow, if new information is invalid
+1.	Administrator inputs correct new information.
+2.	Administrator saves new information.
+3.	Use case returns to step 4 of normal flow.
+Includes:	N/A
+Frequency of Use:	Every time an employee leaves or is promoted.
+Special Requirements:	User database must exist.
+Assumptions:	A disabled account cannot be retrieved.
+Notes and Issues:	 N/A
+
