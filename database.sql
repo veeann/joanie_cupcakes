@@ -6,9 +6,9 @@ CREATE SCHEMA IF NOT EXISTS `Joanie` DEFAULT CHARACTER SET utf8 COLLATE utf8_gen
 USE `Joanie` ;
 
 -- -----------------------------------------------------
--- Table `Joanie`.`Order`
+-- Table `Joanie`.`Order_t`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Joanie`.`Order` (
+CREATE TABLE IF NOT EXISTS `Joanie`.`Order_t` (
   `order_id` INT NOT NULL AUTO_INCREMENT,
   `date` DATETIME NOT NULL,
   `customer_last_name` VARCHAR(255) NOT NULL,
@@ -24,9 +24,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Joanie`.`Report`
+-- Table `Joanie`.`Report_t`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Joanie`.`Report` (
+CREATE TABLE IF NOT EXISTS `Joanie`.`Report_t` (
   `report_id` INT NOT NULL AUTO_INCREMENT,
   `date_from` DATE NOT NULL,
   `date_to` DATE NOT NULL,
@@ -37,37 +37,35 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Joanie`.`Payment`
+-- Table `Joanie`.`Payment_t`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Joanie`.`Payment` (
+CREATE TABLE IF NOT EXISTS `Joanie`.`Payment_t` (
   `payment_id` INT NOT NULL AUTO_INCREMENT,
   `date` DATE NOT NULL,
   `price` DOUBLE NOT NULL,
   `order_id` INT NOT NULL,
   `report_id` INT NOT NULL,
-  `Order_order_id` INT NOT NULL,
-  `Report_report_id` INT NOT NULL,
-  PRIMARY KEY (`payment_id`, `Order_order_id`, `Report_report_id`),
+  PRIMARY KEY (`payment_id`, `order_id`, `report_id`),
   UNIQUE INDEX `payment_id_UNIQUE` (`payment_id` ASC),
-  INDEX `fk_Payment_Order_idx` (`Order_order_id` ASC),
-  INDEX `fk_Payment_Report1_idx` (`Report_report_id` ASC),
+  INDEX `fk_Payment_Order_idx` (`order_id` ASC),
+  INDEX `fk_Payment_Report1_idx` (`report_id` ASC),
   CONSTRAINT `fk_Payment_Order`
-    FOREIGN KEY (`Order_order_id`)
-    REFERENCES `Joanie`.`Order` (`order_id`)
+    FOREIGN KEY (`order_id`)
+    REFERENCES `Joanie`.`Order_t` (`order_id`)
     ON DELETE NO ACTION
-    ON UPDATE CASCADE,
+    ON UPDATE NO ACTION,
   CONSTRAINT `fk_Payment_Report1`
-    FOREIGN KEY (`Report_report_id`)
-    REFERENCES `Joanie`.`Report` (`report_id`)
+    FOREIGN KEY (`report_id`)
+    REFERENCES `Joanie`.`Report_t` (`report_id`)
     ON DELETE NO ACTION
-    ON UPDATE CASCADE)
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Joanie`.`Employee`
+-- Table `Joanie`.`Employee_t`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Joanie`.`Employee` (
+CREATE TABLE IF NOT EXISTS `Joanie`.`Employee_t` (
   `employee_id` INT NOT NULL AUTO_INCREMENT,
   `last_name` VARCHAR(255) NOT NULL,
   `first_name` VARCHAR(255) NOT NULL,
@@ -80,73 +78,62 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Joanie`.`SalaryExpense`
+-- Table `Joanie`.`SalaryExpense_t`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Joanie`.`SalaryExpense` (
+CREATE TABLE IF NOT EXISTS `Joanie`.`SalaryExpense_t` (
   `salary_expense_id` INT NOT NULL AUTO_INCREMENT,
   `date_from` DATE NOT NULL,
   `date_to` DATE NOT NULL,
   `total_salary` DOUBLE NOT NULL,
   `employee_id` INT NOT NULL,
-  `Report_report_id` INT NOT NULL,
-  PRIMARY KEY (`salary_expense_id`, `Report_report_id`),
-  UNIQUE INDEX `salary_expense_id_UNIQUE` (`salary_expense_id` ASC),
-  INDEX `fk_SalaryExpense_Report1_idx` (`Report_report_id` ASC),
-  CONSTRAINT `fk_SalaryExpense_Report1`
-    FOREIGN KEY (`Report_report_id`)
-    REFERENCES `Joanie`.`Report` (`report_id`)
-    ON DELETE NO ACTION
-    ON UPDATE CASCADE)
+  PRIMARY KEY (`salary_expense_id`),
+  UNIQUE INDEX `salary_expense_id_UNIQUE` (`salary_expense_id` ASC))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Joanie`.`Attendance`
+-- Table `Joanie`.`Attendance_t`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Joanie`.`Attendance` (
+CREATE TABLE IF NOT EXISTS `Joanie`.`Attendance_t` (
   `attendance_id` INT NOT NULL,
   `date` DATE NOT NULL,
   `time_in` TIME NOT NULL,
   `time_out` TIME NOT NULL,
-  `employee_id` INT NOT NULL,
   `salary_expense_id` INT NOT NULL,
-  `SalaryExpense_salary_expense_id` INT NOT NULL,
-  `SalaryExpense_Report_report_id` INT NOT NULL,
-  `Employee_employee_id` INT NOT NULL,
-  PRIMARY KEY (`attendance_id`, `SalaryExpense_salary_expense_id`, `SalaryExpense_Report_report_id`, `Employee_employee_id`),
-  INDEX `fk_Attendance_SalaryExpense1_idx` (`SalaryExpense_salary_expense_id` ASC, `SalaryExpense_Report_report_id` ASC),
-  INDEX `fk_Attendance_Employee1_idx` (`Employee_employee_id` ASC),
+  `employee_id` INT NOT NULL,
+  PRIMARY KEY (`attendance_id`, `salary_expense_id`, `employee_id`),
+  INDEX `fk_Attendance_SalaryExpense1_idx` (`salary_expense_id` ASC),
+  INDEX `fk_Attendance_Employee1_idx` (`employee_id` ASC),
   CONSTRAINT `fk_Attendance_SalaryExpense1`
-    FOREIGN KEY (`SalaryExpense_salary_expense_id` , `SalaryExpense_Report_report_id`)
-    REFERENCES `Joanie`.`SalaryExpense` (`salary_expense_id` , `Report_report_id`)
+    FOREIGN KEY (`salary_expense_id`)
+    REFERENCES `Joanie`.`SalaryExpense_t` (`salary_expense_id`)
     ON DELETE NO ACTION
-    ON UPDATE CASCADE,
+    ON UPDATE NO ACTION,
   CONSTRAINT `fk_Attendance_Employee1`
-    FOREIGN KEY (`Employee_employee_id`)
-    REFERENCES `Joanie`.`Employee` (`employee_id`)
+    FOREIGN KEY (`employee_id`)
+    REFERENCES `Joanie`.`Employee_t` (`employee_id`)
     ON DELETE NO ACTION
-    ON UPDATE CASCADE)
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Joanie`.`Expense`
+-- Table `Joanie`.`Expense_t`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Joanie`.`Expense` (
+CREATE TABLE IF NOT EXISTS `Joanie`.`Expense_t` (
   `expense_id` INT NOT NULL AUTO_INCREMENT,
   `date` DATE NOT NULL,
   `price` DOUBLE NOT NULL,
   `details` VARCHAR(255) NOT NULL,
   `report_id` INT NOT NULL,
-  `Report_report_id` INT NOT NULL,
-  PRIMARY KEY (`expense_id`, `Report_report_id`),
+  PRIMARY KEY (`expense_id`, `report_id`),
   UNIQUE INDEX `expense_id_UNIQUE` (`expense_id` ASC),
-  INDEX `fk_Expense_Report1_idx` (`Report_report_id` ASC),
+  INDEX `fk_Expense_Report1_idx` (`report_id` ASC),
   CONSTRAINT `fk_Expense_Report1`
-    FOREIGN KEY (`Report_report_id`)
-    REFERENCES `Joanie`.`Report` (`report_id`)
+    FOREIGN KEY (`report_id`)
+    REFERENCES `Joanie`.`Report_t` (`report_id`)
     ON DELETE NO ACTION
-    ON UPDATE CASCADE)
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
