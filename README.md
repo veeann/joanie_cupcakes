@@ -1,9 +1,1 @@
-homebrew
-
-joanie_cupcakes O_O
-lolz
-
-wat
-===============
-
-hello~
+Use Case Documents are both in files and in the joanie_cupcakes wiki.
