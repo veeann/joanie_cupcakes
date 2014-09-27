@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `Joanie`.`Order_t` (
   `customer_last_name` VARCHAR(255) NOT NULL,
   `customer_first_name` VARCHAR(255) NOT NULL,
   `customer_email` VARCHAR(255) NOT NULL,
-  `customer_contact_number` INT NOT NULL,
+  `customer_contact_number` VARCHAR(13) NOT NULL,
   `details` VARCHAR(255) NOT NULL,
   `price` DOUBLE NOT NULL DEFAULT 0.0,
   `status` VARCHAR(255) NOT NULL,
