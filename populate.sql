@@ -1,5 +1,3 @@
--- -------------------------------------------------------------------------
-
 INSERT INTO Order_t
 VALUES (1, '2014-09-20', 'Yuen', 'WehSing', 'singsing@tinker.com', 09170000001, 'Mocha-frosted cake and with mint sprinkles', 0, 'Rejected');
 
@@ -25,23 +23,29 @@ VALUES (1, '2014-09-20', '2014-09-25', 6500 );
 
 -- -------------------------------------------------------------------------
 
-INSERT INTO Payment_t
-VALUES (1, '2014-09-21', 2000, 2, 1);
-
-INSERT INTO Payment_t
-VALUES (2, '2014-09-22', 1500, 3, 1);
-
-INSERT INTO Payment_t
-VALUES (3, '2014-09-23', 3000, 4, 1);
--- -------------------------------------------------------------------------
-
 INSERT INTO Employee_t
-VALUES (1, 'Dawson', 'Toby', 'Administrator', 'Deploys the banhammer mercilessly unto unruly subjects', 50;
+VALUES (1, 'Dawson', 'Toby', 'Administrator', 'Deploys the banhammer mercilessly unto unruly subjects', 50.00 );
 
 -- -------------------------------------------------------------------------
 
 INSERT INTO SalaryExpense_t
 VALUES (1, '2014-09-20', '2014-09-25', 2700, 1);
+
+-- -------------------------------------------------------------------------
+
+INSERT INTO Expense_t
+VALUES (1, '2014-09-25', 2300, 'Rent', 1)
+
+-- -------------------------------------------------------------------------
+
+INSERT INTO Payment_t
+VALUES (1, '2014-09-21', 20.00, 2, 1);
+
+INSERT INTO Payment_t
+VALUES (2, '2014-09-22', 15.00, 3, 1);
+
+INSERT INTO Payment_t
+VALUES (3, '2014-09-23', 30.00, 4, 1);
 
 -- -------------------------------------------------------------------------
 
@@ -63,7 +67,3 @@ VALUES (5, '2014-09-24', '9:00', '18:00', 1, 1);
 INSERT INTO Attendance_t
 VALUES (6, '2014-09-25', '9:00', '18:00', 1, 1);
 
--- -------------------------------------------------------------------------
-
-INSERT INTO Expense_t
-VALUES (1, '2014-09-25', 2300, 'Rent', 1)
