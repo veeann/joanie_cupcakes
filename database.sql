@@ -1,3 +1,5 @@
+drop database joanie;
+
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
@@ -52,13 +54,11 @@ CREATE TABLE IF NOT EXISTS `Joanie`.`Payment_t` (
   CONSTRAINT `fk_Payment_Order`
     FOREIGN KEY (`order_id`)
     REFERENCES `Joanie`.`Order_t` (`order_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Payment_Report1`
     FOREIGN KEY (`report_id`)
     REFERENCES `Joanie`.`Report_t` (`report_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -107,13 +107,11 @@ CREATE TABLE IF NOT EXISTS `Joanie`.`Attendance_t` (
   CONSTRAINT `fk_Attendance_SalaryExpense1`
     FOREIGN KEY (`salary_expense_id`)
     REFERENCES `Joanie`.`SalaryExpense_t` (`salary_expense_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Attendance_Employee1`
     FOREIGN KEY (`employee_id`)
     REFERENCES `Joanie`.`Employee_t` (`employee_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -132,8 +130,7 @@ CREATE TABLE IF NOT EXISTS `Joanie`.`Expense_t` (
   CONSTRAINT `fk_Expense_Report1`
     FOREIGN KEY (`report_id`)
     REFERENCES `Joanie`.`Report_t` (`report_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
