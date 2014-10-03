@@ -12,7 +12,7 @@ USE `Joanie` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Joanie`.`Order_t` (
   `order_id` INT NOT NULL AUTO_INCREMENT,
-  `date` DATETIME NOT NULL,
+  `order_date` DATETIME NOT NULL,
   `customer_last_name` VARCHAR(255) NOT NULL,
   `customer_first_name` VARCHAR(255) NOT NULL,
   `customer_email` VARCHAR(255) NOT NULL,
@@ -43,7 +43,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Joanie`.`Payment_t` (
   `payment_id` INT NOT NULL AUTO_INCREMENT,
-  `date` DATE NOT NULL,
+  `pay_date` DATE NOT NULL,
   `price` DOUBLE NOT NULL,
   `order_id` INT NOT NULL,
   `report_id` INT NOT NULL,
@@ -72,6 +72,7 @@ CREATE TABLE IF NOT EXISTS `Joanie`.`Employee_t` (
   `job_title` VARCHAR(255) NOT NULL,
   `job_description` VARCHAR(255) NOT NULL,
   `salary` DOUBLE NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`employee_id`),
   UNIQUE INDEX `employee_id_UNIQUE` (`employee_id` ASC))
 ENGINE = InnoDB;
@@ -95,19 +96,13 @@ ENGINE = InnoDB;
 -- Table `Joanie`.`Attendance_t`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Joanie`.`Attendance_t` (
-  `attendance_id` INT NOT NULL,
-  `date` DATE NOT NULL,
+  `attendance_id` INT NOT NULL AUTO_INCREMENT,
+  `signed_date` DATE NOT NULL,
   `time_in` TIME NOT NULL,
   `time_out` TIME NOT NULL,
-  `salary_expense_id` INT NOT NULL,
   `employee_id` INT NOT NULL,
-  PRIMARY KEY (`attendance_id`, `salary_expense_id`, `employee_id`),
-  INDEX `fk_Attendance_SalaryExpense1_idx` (`salary_expense_id` ASC),
+  PRIMARY KEY (`attendance_id`, `employee_id`),
   INDEX `fk_Attendance_Employee1_idx` (`employee_id` ASC),
-  CONSTRAINT `fk_Attendance_SalaryExpense1`
-    FOREIGN KEY (`salary_expense_id`)
-    REFERENCES `Joanie`.`SalaryExpense_t` (`salary_expense_id`)
-    ON UPDATE CASCADE,
   CONSTRAINT `fk_Attendance_Employee1`
     FOREIGN KEY (`employee_id`)
     REFERENCES `Joanie`.`Employee_t` (`employee_id`)
@@ -120,7 +115,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Joanie`.`Expense_t` (
   `expense_id` INT NOT NULL AUTO_INCREMENT,
-  `date` DATE NOT NULL,
+  `expense_date` DATE NOT NULL,
   `price` DOUBLE NOT NULL,
   `details` VARCHAR(255) NOT NULL,
   `report_id` INT NOT NULL,
