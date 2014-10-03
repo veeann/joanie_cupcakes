@@ -24,7 +24,10 @@ VALUES (1, '2014-09-20', '2014-09-25', 6500 );
 -- -------------------------------------------------------------------------
 
 INSERT INTO Employee_t
-VALUES (1, 'Dawson', 'Toby', 'Administrator', 'Deploys the banhammer mercilessly unto unruly subjects', 50.00 );
+VALUES (1, 'Dawson', 'Toby', 'Administrator', 'Deploys the banhammer mercilessly unto unruly subjects', 50.00, 'crazy' );
+
+INSERT INTO Employee_t
+VALUES (2, 'Possible', 'Kim', 'Employee', 'Cashier and all that shizz', 20.00, 'hello' );
 
 -- -------------------------------------------------------------------------
 
@@ -34,7 +37,7 @@ VALUES (1, '2014-09-20', '2014-09-25', 2700, 1);
 -- -------------------------------------------------------------------------
 
 INSERT INTO Expense_t
-VALUES (1, '2014-09-25', 2300, 'Rent', 1)
+VALUES (1, '2014-09-25', 2300, 'Rent', 1);
 
 -- -------------------------------------------------------------------------
 
@@ -50,20 +53,20 @@ VALUES (3, '2014-09-23', 30.00, 4, 1);
 -- -------------------------------------------------------------------------
 
 INSERT INTO Attendance_t
-VALUES (1, '2014-09-20', '9:00', '18:00', 1, 1);
+VALUES (1, '2014-09-20', '9:00', '18:00', 1);
 
 INSERT INTO Attendance_t
-VALUES (2, '2014-09-21', '9:00', '18:00', 1, 1);
+VALUES (2, '2014-09-21', '9:00', '18:00', 1);
 
 INSERT INTO Attendance_t
-VALUES (3, '2014-09-22', '9:00', '18:00', 1, 1);
+VALUES (3, '2014-09-22', '9:00', '18:00', 1);
 
 INSERT INTO Attendance_t
-VALUES (4, '2014-09-23', '9:00', '18:00', 1, 1);
+VALUES (4, '2014-09-23', '9:00', '18:00', 1);
 
 INSERT INTO Attendance_t
-VALUES (5, '2014-09-24', '9:00', '18:00', 1, 1);
+VALUES (5, '2014-09-24', '9:00', '18:00', 1);
 
 INSERT INTO Attendance_t
-VALUES (6, '2014-09-25', '9:00', '18:00', 1, 1);
+VALUES (6, '2014-09-25', '9:00', '18:00', 1);
 
