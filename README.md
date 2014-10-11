@@ -17,7 +17,9 @@ Notes on exploring the website:
 
 1. As a customer, ordering is the only thing you can do. You can also view the login page for employees.
 2. A normal Employee and an Administrator have different permissions. View both by using the sample accounts in the database.
-     Administrator username - 1
-     Administrator password - crazy 
-     Employee username - 2
-     Employee password - hello
+     
+Administrator username - 1
+Administrator password - crazy 
+
+Employee username - 2
+Employee password - hello
