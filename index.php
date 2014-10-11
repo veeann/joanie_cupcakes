@@ -37,12 +37,20 @@ button{
 <body>
 
 <div class="container">
+	<?php
+	session_start();
+    session_unset();
+    session_destroy();
+    session_write_close();
+    setcookie(session_name(),'',0,'/');
+    session_regenerate_id(true);
+	?>
 	<div class="clear"></div>
 
 	<div class="header" align="center">
 		<p>&nbsp;</p>
 		<a href="index.php">
-			<img src="images/logo.jpg" alt="Insert Logo Here" name="Insert_logo" width="300" height="208" class="header" id="Insert_logo" style="background-color: #3C2311; display:block;" />
+			<img src="images/logo.png" alt="Insert Logo Here" name="Insert_logo" width="300" height="208" class="header" id="Insert_logo" style="background-color: #3C2311; display:block;" />
     	</a>
     	<p>&nbsp;</p>
     	<font color="#EE657F">A one-stop cake shop to fulfill your sweet tooth!</font>
@@ -57,9 +65,9 @@ button{
   		<div id="wrapper">
     		<div id="container">
 				<div id="slider">
-					<img src="images/sample1.jpg" width="600" height="600" />
-					<img src="images/sample2.jpg" width="600" height="600" />
-					<img src="images/sample3.jpg" width="600" height="600" />
+					<img src="images/sample1.png" width="600" height="600" />
+					<img src="images/sample2.png" width="600" height="600" />
+					<img src="images/sample3.png" width="600" height="600" />
 				</div>
  			</div>  
   		</div>
@@ -71,7 +79,7 @@ button{
 		</div>
 	</div>
 
-  	<div class="footer">Copyright 2014</div>
+  	<div class="footer"><img src="images/Logo3.png" width="50" height="50" />Copyright 2014</div>
 </div>
 
 
