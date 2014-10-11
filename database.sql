@@ -46,18 +46,12 @@ CREATE TABLE IF NOT EXISTS `Joanie`.`Payment_t` (
   `pay_date` DATE NOT NULL,
   `price` DOUBLE NOT NULL,
   `order_id` INT NOT NULL,
-  `report_id` INT NOT NULL,
-  PRIMARY KEY (`payment_id`, `order_id`, `report_id`),
+  PRIMARY KEY (`payment_id`, `order_id`),
   UNIQUE INDEX `payment_id_UNIQUE` (`payment_id` ASC),
   INDEX `fk_Payment_Order_idx` (`order_id` ASC),
-  INDEX `fk_Payment_Report1_idx` (`report_id` ASC),
   CONSTRAINT `fk_Payment_Order`
     FOREIGN KEY (`order_id`)
     REFERENCES `Joanie`.`Order_t` (`order_id`)
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_Payment_Report1`
-    FOREIGN KEY (`report_id`)
-    REFERENCES `Joanie`.`Report_t` (`report_id`)
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
@@ -86,7 +80,6 @@ CREATE TABLE IF NOT EXISTS `Joanie`.`SalaryExpense_t` (
   `date_from` DATE NOT NULL,
   `date_to` DATE NOT NULL,
   `total_salary` DOUBLE NOT NULL,
-  `employee_id` INT NOT NULL,
   PRIMARY KEY (`salary_expense_id`),
   UNIQUE INDEX `salary_expense_id_UNIQUE` (`salary_expense_id` ASC))
 ENGINE = InnoDB;
@@ -118,14 +111,8 @@ CREATE TABLE IF NOT EXISTS `Joanie`.`Expense_t` (
   `expense_date` DATE NOT NULL,
   `price` DOUBLE NOT NULL,
   `details` VARCHAR(255) NOT NULL,
-  `report_id` INT NOT NULL,
-  PRIMARY KEY (`expense_id`, `report_id`),
-  UNIQUE INDEX `expense_id_UNIQUE` (`expense_id` ASC),
-  INDEX `fk_Expense_Report1_idx` (`report_id` ASC),
-  CONSTRAINT `fk_Expense_Report1`
-    FOREIGN KEY (`report_id`)
-    REFERENCES `Joanie`.`Report_t` (`report_id`)
-    ON UPDATE CASCADE)
+  PRIMARY KEY (`expense_id`),
+  UNIQUE INDEX `expense_id_UNIQUE` (`expense_id` ASC))
 ENGINE = InnoDB;
 
 
