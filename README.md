@@ -1,3 +1,7 @@
+Requirements to Run the Project:
+1. MySQL Support
+2. PHP Server
+
 How to Set-up Project:
 
 1. Make sure all files are in one folder (let us call it 'joanie' but you can name it anything).
