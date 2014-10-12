@@ -88,8 +88,9 @@ button{
         if($searchby=="exid")
           $sqlquery.="WHERE expense_id = $searchterm ";
         else if($searchby=="exda")
-          $sqlquery.="WHERE upper(expense_date) LIKE upper(\"%$searchterm%\") ";
+          $sqlquery.="WHERE expense_date = \"$searchterm\" ";
         
+        $sqlquery.="ORDER BY expense_date DESC ";
         $result=@mysqli_query($sqlconn, $sqlquery);
         
         if($result == false)
