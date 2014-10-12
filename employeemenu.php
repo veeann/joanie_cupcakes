@@ -43,31 +43,26 @@ button{
   	<div class="header" align="center" >
   		</br>
   		<a href="index.php">
-  			<img src="images/logo.jpg" alt="Insert Logo Here" name="Insert_logo" width="169" height="155" id="Insert_logo" style="background-color: #C6D580; display:block;" />
+  			<img src="images/logo.png" alt="Insert Logo Here" name="Insert_logo" width="169" height="155" id="Insert_logo" style="background-color: #C6D580; display:block;" />
   		</a> 
   		</br>
   		<?php
   		session_start();
-  		$userid = $_SESSION['logname'];
-  		$sqlconn=@mysqli_connect("localhost", "root", "", "joanie")  or die("There was a problem reaching the database.");
-  		$sqlquery="SELECT * FROM Employee_t WHERE employee_id = $userid ";
-  		$result=@mysqli_query($sqlconn, $sqlquery);
-  		$row = @mysqli_fetch_array($result);
-  		$name = $row['first_name'];
-  		echo "Welcome, $name!";
-  		@mysqli_close($sqlconn);
+  		$userid = $_SESSION['userid'];
+      $_SESSION['userid'] = $userid;
   		?>
   	</div>
 
   	<div class="container_12">
   		<div class="grid_3">
-        <a href="attendance.php?userid=<?php echo $userid ?>"><button>Sign Attendance</button></a>
-        <button>Orders</button>
-  		  <button>Salaries</button>
-  		  <button>Expenses</button>
-  		  <button>Order Payment</button>
-        <button>Sales Report</button>
-  		  <a href="addemployee.php?userid=<?php echo $userid ?>"><button>New Employee</button></a>
+        <a href="attendance.php"><button>Sign Attendance</button></a>
+        <a href="viewattendance.php"><button>View Attendance</button></a>
+        <a href="orders.php"><button>Orders</button></a>
+  		  <a href="salary.php"><button>Salaries</button></a>
+  		  <a href="expenses.php"><button>Expenses</button></a>
+  		  <a href="payment.php"><button>Order Payment</button></a>
+        <a href="sales.php"><button>Sales Report</button></a>
+  		  <a href="employees.php"><button>Employees</button></a>
       </div>
       <div class="grid_9">
         <?php
@@ -77,6 +72,7 @@ button{
         $result=@mysqli_query($sqlconn, $sqlquery);
         $row = @mysqli_fetch_array($result);
         $name = $row['first_name'];
+        echo "Welcome, $name!";
         $surname = $row['last_name'];
         $title = $row['job_title'];
         $job = $row['job_description'];
@@ -90,7 +86,7 @@ button{
         else {
           $row = @mysqli_fetch_array($result);
           if ($row['time_in']!=$row['time_out']) {
-            echo "</br></br>You have already signed out. See you tomorrow!</br>";
+            echo "</br></br>You have already signed out. Good job today!</br>";
           }
           else{
             echo "</br></br>Are you leaving? Don't forget to sign out!</br>";
@@ -110,6 +106,7 @@ button{
           echo "<p>You cannot view the attendance of other employees.</p></br>";
           echo "<p>You cannot view the salaries of other employees.</p></br>";
           echo "<p>You cannot view nor request for a sales report.</p></br>";
+          echo "<p>You cannot view the list of employees.</p></br>";
           echo "<p>You cannot create a new employee account.</p></br>";
         }
 
@@ -121,7 +118,7 @@ button{
   	</br>
   	</br>
   	</br>
-  	<div class="footer">Copyright 2014</div>
+  	<div class="footer"><img src="images/Logo3.png" width="50" height="50" />Copyright 2014</div>
 </div>
 
 </body>
