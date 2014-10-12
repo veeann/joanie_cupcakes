@@ -113,6 +113,8 @@ button{
               $sqlquery.="WHERE (\"$dategiven\" BETWEEN date_from AND date_to) ";
             }
 
+            $sqlquery.="ORDER BY date_from DESC ";
+
             $result=@mysqli_query($sqlconn, $sqlquery);
             
             if($result == false)
