@@ -1,0 +1,10 @@
+Sources and References:
+
+Passing From PHP to PHP: http://stackoverflow.com/questions/871858/php-pass-variable-to-next-page
+MySQL and PHP Connection: http://www.w3schools.com/php/php_mysql_connect.asp
+960 CSS: http://960.gs/
+Placeholders: http://stackoverflow.com/questions/108207/how-do-i-make-an-html-text-box-show-a-hint-when-empty
+Bootstrap: http://getbootstrap.com/ 
+PHP/HTML Tables: Carrier Project © Leona Lao 2013-2014
+PHP Sessions: http://php.net/manual/en/function.session-unset.php
+Delete Confirmation: http://stackoverflow.com/questions/16121538/javascript-confirm-before-deletion-with-php-mysql
