@@ -96,12 +96,13 @@ button{
         if($searchby=="payid")
           $sqlquery.="WHERE payment_id = $searchterm ";
         else if($searchby=="payda")
-          $sqlquery.="WHERE upper(pay_date) LIKE upper(\"%$searchterm%\") ";
+          $sqlquery.="WHERE pay_date = \"$searchterm\" ";
         else if($searchby=="price")
-          $sqlquery.="WHERE upper(price) LIKE upper(\"%$searchterm%\") ";
+          $sqlquery.="WHERE price = $searchterm ";
         else if($searchby=="ordid")
-          $sqlquery.="WHERE upper(order_id) LIKE upper(\"%$searchterm%\") ";
+          $sqlquery.="WHERE order_id = $searchterm ";
         
+        $sqlquery.="ORDER BY pay_date DESC ";
         $result=@mysqli_query($sqlconn, $sqlquery);
         
         if($result == false)
