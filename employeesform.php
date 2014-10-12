@@ -79,7 +79,10 @@ button{
           $sidebar .= '<p><input type="text" name="firstn" placeholder="Mary Ann" /></p>';
           $sidebar .= '</br>';
           $sidebar .= '<p>Job Title:</p>';
-          $sidebar .= '<p><input type="text" name="jobti" placeholder="Employee/Administrator" /></p>';
+          $sidebar .= '<p><select name="jobti">
+                        <option value="Administrator">Administrator</option>
+                        <option value="Employee">Employee</option>
+                      </select></p>';
           $sidebar .= '</br>';
           $sidebar .= '<p>Job Description:</p>';
           $sidebar .= '<p><input type="text" name="jobdesc" placeholder="Cashier" /></p>';
@@ -101,7 +104,11 @@ button{
         $sidebar .= '<form method="post">';
         if ($rank=="Administrator") {
           $sidebar .= '<p>Update Job Title:</p>';
-          $sidebar .= '<p><input type="text" name="uptitle" placeholder="Leave blank to retain" /></p>';
+          $sidebar .= '<p><select name="uptitle">
+                        <option value="nothing">--</option>
+                        <option value="Administrator">Administrator</option>
+                        <option value="Employee">Employee</option>
+                      </select></p>';
           $sidebar .= '</br>';
           $sidebar .= '<p>Update Job Descrption:</p>';
           $sidebar .= '<p><input type="text" name="updesc" placeholder="Leave blank to retain" /></p>';
@@ -127,26 +134,21 @@ button{
           $theworker = "INSERT INTO Employee_t (last_name, first_name, job_title, job_description, salary, password) VALUES (";
           if (!empty($_POST['lastn']) && !empty($_POST['firstn'])) {
             $theworker .= "  '".$_POST['lastn']."', '".$_POST['firstn']."', ";
-            if (!empty($_POST['jobti'])) {
-              $thetitle = $_POST['jobti'];
-              if ($thetitle=="Administrator" || $thetitle=="Employee") {
-                $theworker .= " '".$thetitle."', ";
-                if (!empty($_POST['jobdesc'])) {
-                  
-                  $theworker .= " '".$_POST['jobdesc']."', ";
-                  if (!empty($_POST['salary'])) {
-                    $numform = '/\d+.\d+/';
-                    if (preg_match($numform, $_POST['salary'])) {
-                      $presyo = $_POST['salary'];
-                      $theworker .= "$presyo, ";
-                      if (!empty($_POST['pass'])) {
-                        $theworker .= "  '".$_POST['pass']."') ";
-                        //echo "$theworker";
-                        @mysqli_query($sqlconn,$theworker); 
-                        @mysqli_close($sqlconn);
-                        header ("Location: employees.php");
-                      }
-                    }
+            $theworker .= " '".$_POST['jobti']."', ";
+            if (!empty($_POST['jobdesc'])) {
+              
+              $theworker .= " '".$_POST['jobdesc']."', ";
+              if (!empty($_POST['salary'])) {
+                $numform = '/\d+.\d+/';
+                if (preg_match($numform, $_POST['salary'])) {
+                  $presyo = $_POST['salary'];
+                  $theworker .= "$presyo, ";
+                  if (!empty($_POST['pass'])) {
+                    $theworker .= "  '".$_POST['pass']."') ";
+                    //echo "$theworker";
+                    @mysqli_query($sqlconn,$theworker); 
+                    @mysqli_close($sqlconn);
+                    header ("Location: employees.php");
                   }
                 }
               }
@@ -171,9 +173,9 @@ button{
             echo "</table>";
           }
           
-          if(!empty($_POST['uptitle'])){
+          if(isset($_POST['uptitle'])){
             $check = $_POST['uptitle'];
-            if ($check!="Employee" && $check!="Administrator") {
+            if ($check=="nothing") {
               //echo "<script type=\"text/javascript\">location.reload();</script>";
             }
             else {
