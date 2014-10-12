@@ -110,7 +110,7 @@ button{
           else if($searchby=="empfn")
             $sqlquery.="WHERE upper(first_name) LIKE upper(\"%$searchterm%\") ";
           else if($searchby=="empjt")
-            $sqlquery.="WHERE upper(job_title) LIKE upper(\"%$searchterm%\") ";
+            $sqlquery.="WHERE upper(job_title) LIKE upper(\"$searchterm\") ";
           else if($searchby=="empjd")
             $sqlquery.="WHERE upper(job_description) LIKE upper(\"%$searchterm%\") ";
           
