@@ -75,7 +75,7 @@ button{
           @mysqli_close($sqlconn);
           ?>
         </select>
-        <input type="text" name="search"><br>
+        <input type="text" name="search" placeholder="If Date: YYYY-MM-DD"><br>
         </form>
         </br>
       </div>
@@ -113,10 +113,12 @@ button{
             $sqlquery.="WHERE attendance_id = $searchterm ";
           else if($searchby=="day") {
             if ($rank=="Administrator")
-              $sqlquery.="WHERE upper(signed_date) LIKE upper(\"%$searchterm%\") ";
+              $sqlquery.="WHERE signed_date = \"$searchterm\" ";
             else
-              $sqlquery.="WHERE employee_id=$userid AND upper(signed_date) LIKE upper(\"%$searchterm%\") ";
+              $sqlquery.="WHERE employee_id=$userid AND signed_date = \"$searchterm\" ";
           }
+
+          $sqlquery.="ORDER BY attendance_id DESC ";
 
 
           $result=@mysqli_query($sqlconn, $sqlquery);
