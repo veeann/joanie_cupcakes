@@ -32,7 +32,9 @@ CREATE TABLE IF NOT EXISTS `Joanie`.`Report_t` (
   `report_id` INT NOT NULL AUTO_INCREMENT,
   `date_from` DATE NOT NULL,
   `date_to` DATE NOT NULL,
-  `net_profit` DOUBLE NOT NULL,
+  `gross_income` DOUBLE NOT NULL,
+  `total_expenses` DOUBLE NOT NULL,
+  `net_income` DOUBLE NOT NULL,
   PRIMARY KEY (`report_id`),
   UNIQUE INDEX `report_id_UNIQUE` (`report_id` ASC))
 ENGINE = InnoDB;
