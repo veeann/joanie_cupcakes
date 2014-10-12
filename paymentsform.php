@@ -79,9 +79,12 @@ button{
       else {
         $sidebar .= 'class="grid_3">';
         $sidebar .= '<p><a href="payment.php"><button>All Payments</button></a></p></br>';
-        $sidebar .= '<form method="post">';
-        $sidebar .= '<p><input type="submit" name="delpay" value="Delete Payment" /></p>';
-        $sidebar .= '</form>';
+        $sidebar .= '<p><form method="post" action="deletepayment.php" onSubmit="return confirm(\'are you sure?\')">
+        <input type="hidden" value="';
+        $sidebar .= "$id";
+        $sidebar .= '" name="delthis" />
+        <input type="submit" value="Delete this Payment" />
+        </form></p></br>';
       }
       $sidebar .= '</div>';
       echo $sidebar;
@@ -127,12 +130,6 @@ button{
             $thisorder = $row['order_id'];
             echo "<tr onclick=\"redirect($thisorder)\" ><td>Order ID</td><td>{$thisorder}</td></tr>";
             echo "</table>";
-            if ( isset( $_POST['delpay'] ) ) { 
-              $deletepay = "DELETE FROM Payment_t WHERE payment_id=$id ";
-              @mysqli_query($sqlconn,$deletepay);
-              @mysqli_close($sqlconn);
-              header ("Location: payment.php");
-            }
           }
         }
         @mysqli_close($sqlconn);
