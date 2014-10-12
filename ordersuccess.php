@@ -16,7 +16,7 @@
  	<div class="header" align="center" >
  		</br>
  		<a href="index.php">
- 			<img src="images/logo.jpg" alt="Insert Logo Here" name="Insert_logo" width="169" height="155" id="Insert_logo" style="background-color: #C6D580; display:block;" />
+ 			<img src="images/logo.png" alt="Insert Logo Here" name="Insert_logo" width="169" height="155" id="Insert_logo" style="background-color: #C6D580; display:block;" />
  		</a>
  		</br>
  		<font color="#EE637E">A one-stop cake shop to fulfill your sweet tooth!</font>
@@ -26,7 +26,7 @@
  		</br>
     </div>
 
-  	<div class="footer">Copyright 2014</div>
+  	<div class="footer"><img src="images/Logo3.png" width="50" height="50" />Copyright 2014</div>
 
 </div>
 </body>
