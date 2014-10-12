@@ -1,7 +1,9 @@
 <?php
+session_start();
+$userid = $_SESSION['userid'];
+$_SESSION['userid'] = $userid;
 date_default_timezone_set('Asia/Manila');
 $sqlconn=@mysqli_connect("localhost", "root", "", "joanie")  or die("There was a problem reaching the database.");
-$userid = $_GET['userid'];
 $today =  date('Y-m-d');
 $time = date('H:i:s');
 $sqlquery="SELECT * FROM Attendance_t, Employee_t WHERE Employee_t.employee_id = $userid AND Employee_t.employee_id = Attendance_t.employee_id AND Attendance_t.signed_date = '".$today."' ";
@@ -20,5 +22,5 @@ else {
 	}
 }
 @mysqli_close($sqlconn);
-header ("Location: employeemenu.php? userid = $userid");
+header ("Location: employeemenu.php");
 ?>
