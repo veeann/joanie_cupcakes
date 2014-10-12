@@ -15,7 +15,7 @@ if($result == false || @mysqli_num_rows($result)==0)
 	header ("Location: login.php");
 else{
 	session_start();
-	$_SESSION['logname'] = $id;
+	$_SESSION['userid'] = $id;
 	header ("Location: employeemenu.php");
 }
 
