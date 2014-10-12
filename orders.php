@@ -99,7 +99,7 @@ button{
         if($searchby=="orderid")
           $sqlquery.="WHERE order_id = $searchterm ";
         else if($searchby=="orderda")
-          $sqlquery.="WHERE upper(order_date) LIKE upper(\"%$searchterm%\") ";
+          $sqlquery.="WHERE order_date = \"$searchterm\" ";
         else if($searchby=="custln")
           $sqlquery.="WHERE upper(customer_last_name) LIKE upper(\"%$searchterm%\") ";
         else if($searchby=="custfn")
@@ -111,6 +111,8 @@ button{
         else if($searchby=="orderst")
           $sqlquery.="WHERE upper(status) LIKE upper(\"%$searchterm%\") ";
         
+        $sqlquery.="ORDER BY order_date DESC ";
+
         $result=@mysqli_query($sqlconn, $sqlquery);
         
         if($result == false)
