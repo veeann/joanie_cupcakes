@@ -72,9 +72,12 @@ button{
       else {
         $sidebar .= 'class="grid_3">';
         $sidebar .= '<p><a href="expenses.php"><button>All Expenses</button></a></p></br>';
-        $sidebar .= '<form method="post">';
-        $sidebar .= '<p><input type="submit" name="delexpense" value="Delete Expense" /></p>';
-        $sidebar .= '</form>';
+        $sidebar .= '<p><form method="post" action="deleteexpense.php" onSubmit="return confirm(\'are you sure?\')">
+        <input type="hidden" value="';
+        $sidebar .= "$id";
+        $sidebar .= '" name="delthis" />
+        <input type="submit" value="Delete this Expense" />
+        </form></p></br>';
       }
       $sidebar .= '</div>';
       echo $sidebar;
@@ -114,12 +117,6 @@ button{
             echo "<tr><td>Price</td><td>{$row['price']}</td></tr>";
             echo "<tr><td>Details</td><td>{$row['details']}</td></tr>";
             echo "</table>";
-            if ( isset( $_POST['delexpense'] ) ) { 
-              $deleteex = "DELETE FROM Expense_t WHERE expense_id=$id ";
-              @mysqli_query($sqlconn,$deleteex);
-              @mysqli_close($sqlconn);
-              header ("Location: expenses.php");
-            }
           }
         }
         @mysqli_close($sqlconn);
