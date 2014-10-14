@@ -133,19 +133,23 @@ button{
         if ($id=="addemp") {
           $theworker = "INSERT INTO Employee_t (last_name, first_name, job_title, job_description, salary, password) VALUES (";
           if (!empty($_POST['lastn']) && !empty($_POST['firstn'])) {
-            $theworker .= "  '".$_POST['lastn']."', '".$_POST['firstn']."', ";
+            $current = array("\\", "'", "\"");
+            $shouldb   = array("\\\\", "\'", "\\\"");
+            $nlast = str_replace($current, $shouldb, $_POST['lastn']);
+            $nfirst = str_replace($current, $shouldb, $_POST['firstn']);
+
+            $theworker .= "  '".$nlast."', '".$nfirst."', ";
             $theworker .= " '".$_POST['jobti']."', ";
             if (!empty($_POST['jobdesc'])) {
-              
-              $theworker .= " '".$_POST['jobdesc']."', ";
+              $jdesc = str_replace($current, $shouldb, $_POST['jobdesc']);
+              $theworker .= " '".$jdesc."', ";
               if (!empty($_POST['salary'])) {
                 $numform = '/\d+.\d+/';
                 if (preg_match($numform, $_POST['salary'])) {
                   $presyo = $_POST['salary'];
                   $theworker .= "$presyo, ";
-                  if (!empty($_POST['pass'])) {
+                  if (!empty($_POST['pass']) && preg_match('/[a-zA-Z0-9\s]+/', $_POST['pass'])) {
                     $theworker .= "  '".$_POST['pass']."') ";
-                    //echo "$theworker";
                     @mysqli_query($sqlconn,$theworker); 
                     @mysqli_close($sqlconn);
                     header ("Location: employees.php");
@@ -186,6 +190,10 @@ button{
           }
           if(!empty($_POST['updesc'])){
             $check = $_POST['updesc'];
+            $current = array("\\", "'", "\"");
+            $shouldb   = array("\\\\", "\'", "\\\"");
+            $newphrase = str_replace($current, $shouldb, $check);
+            $check = $newphrase;
             @mysqli_query($sqlconn, "UPDATE Employee_t SET job_description='".$check."' WHERE employee_id=$id");
             //echo "<script type=\"text/javascript\">location.reload();</script>";
             header ("Location: employeesform.php?$id");
@@ -204,8 +212,10 @@ button{
           }
           if(!empty($_POST['uppass'])){
             $check = $_POST['uppass'];
-            @mysqli_query($sqlconn, "UPDATE Employee_t SET password='".$check."' WHERE employee_id=$id");
-            //echo "<script type=\"text/javascript\">location.reload();</script>";
+            if (preg_match('/[a-zA-Z0-9\s]+/', $check)) {
+              @mysqli_query($sqlconn, "UPDATE Employee_t SET password='".$check."' WHERE employee_id=$id");
+              //echo "<script type=\"text/javascript\">location.reload();</script>";
+            }
             header ("Location: employeesform.php?$id");
           }
         }
