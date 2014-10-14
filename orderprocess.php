@@ -11,6 +11,18 @@ $emformat = '/\S+@\S+.\S+/';
 $numforma = '/\d{11}/';
 $numformb = '/\d{4}-\d{3}-\d{4}/';
 
+$current = array("\\", "'", "\"");
+$shouldb   = array("\\\\", "\'", "\\\"");
+
+$grr = str_replace($current, $shouldb, $fn);
+$fn = $grr;
+$grr = str_replace($current, $shouldb, $ln);
+$ln = $grr;
+$grr = str_replace($current, $shouldb, $em);
+$em = $grr;
+$grr = str_replace($current, $shouldb, $ds);
+$ds = $grr;
+
 if ($fn == "" || $ln == "" || $em == "" || $cn == "" || $ds == "") {
 	//$_SESSION['error'] = "Please fill in all the fields.";
 	header ("Location: customerordering.php");
