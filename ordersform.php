@@ -126,18 +126,24 @@ button{
           $theorder = "INSERT INTO Order_t (order_date, customer_last_name, customer_first_name, customer_email, customer_contact_number, details, price, status) VALUES ('".$today."', ";
 
           if (!empty($_POST['lastn']) && !empty($_POST['firstn'])) {
-            $theorder .= "  '".$_POST['lastn']."', '".$_POST['firstn']."', ";
+            $current = array("\\", "'", "\"");
+            $shouldb   = array("\\\\", "\'", "\\\"");
+            $nlast = str_replace($current, $shouldb, $_POST['lastn']);
+            $nfirst = str_replace($current, $shouldb, $_POST['firstn']);
+            $theorder .= "  '".$nlast."', '".$nfirst."', ";
             if (!empty($_POST['details']) && !empty($_POST['email'])) {
               $emformat = '/\S+@\S+.\S+/';
               if (preg_match($emformat, $_POST['email'])) {
-                $theorder .= " '".$_POST['email']."', ";
+                $emm = str_replace($current, $shouldb, $_POST['email']);
+                $theorder .= " '".$emm."', ";
                 if (!empty($_POST['cnum'])) {
                   $numforma = '/\d{11}/';
                   $numformb = '/\d{4}-\d{3}-\d{4}/';
                   if (preg_match($numforma, $_POST['cnum']) || preg_match($numformb, $_POST['cnum'])) {
                     $temp = str_replace("-","",$_POST['cnum']);
                     $theorder .= " '$temp', ";
-                    $theorder .= " '".$_POST['details']."', ";
+                    $dets = str_replace($current, $shouldb, $_POST['details']);
+                    $theorder .= " '".$dets."', ";
                     if (!empty($_POST['price'])) {
                       $numform = '/\d+.\d+/';
                       if (preg_match($numform, $_POST['price'])) {
@@ -163,6 +169,14 @@ button{
           else{
             echo '<table><tr><th /><th>Record Details</th></tr>';
             $row = @mysqli_fetch_array($result);
+
+            $payment = 0;
+            $arr=@mysqli_query($sqlconn, "SELECT * FROM Payment_t WHERE order_id=$id ");
+            while($paid = @mysqli_fetch_array($arr)){
+              $payment = $payment + $paid['price'];
+            }
+            $balance = $row['price'] - $payment;
+
             echo "<tr><td>Order ID</td><td>$id</td></tr>";
             echo "<tr><td>Date</td><td>{$row['order_date']}</td></tr>";
             echo "<tr><td>Last Name</td><td>{$row['customer_last_name']}</td></tr>";
@@ -171,6 +185,7 @@ button{
             echo "<tr><td>Contact Numbers</td><td>{$row['customer_contact_number']}</td></tr>";
             echo "<tr><td>Details</td><td>{$row['details']}</td></tr>";
             echo "<tr><td>Price</td><td>{$row['price']}</td></tr>";
+            echo "<tr><td>Balance</td><td>{$balance}</td></tr>";
             echo "<tr><td>Status</td><td>{$row['status']}</td></tr>";
             echo "</table>";
           }
