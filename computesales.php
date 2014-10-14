@@ -62,7 +62,7 @@ button{
       ?>
       <div class="grid_3">
         </br>
-        <h2>Compute Salaries</h2>
+        <h2>Compute Sales</h2>
         </br>
         <form method="post">
         <p><font style="font-size:12px">Period</font></p>
