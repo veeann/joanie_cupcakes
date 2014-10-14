@@ -103,6 +103,11 @@ button{
           if(isset($_POST['search']))
             $searchterm=$_POST['search'];
           
+          $current = array("\\", "'", "\"");
+          $shouldb   = array("\\\\", "\'", "\\\"");
+          $newphrase = str_replace($current, $shouldb, $searchterm);
+          $searchterm = $newphrase;
+          
           if($searchby=="empid")
             $sqlquery.="WHERE employee_id = $searchterm ";
           else if($searchby=="empln")
