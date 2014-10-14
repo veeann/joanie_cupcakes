@@ -96,7 +96,10 @@ button{
               $numform = '/\d+.\d+/';
               if (preg_match($numform, $_POST['price'])) {
                 $presyo = $_POST['price'];
-                $theexpense .= "$presyo, '".$_POST['details']."') ";
+                $current = array("\\", "'", "\"");
+                $shouldb   = array("\\\\", "\'", "\\\"");
+                $dets = str_replace($current, $shouldb, $_POST['details']);
+                $theexpense .= "$presyo, '".$dets."') ";
                 @mysqli_query($sqlconn,$theexpense); 
                 @mysqli_close($sqlconn);
                 header ("Location: expenses.php");
