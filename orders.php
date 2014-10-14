@@ -95,6 +95,11 @@ button{
           $searchby=$_POST['searchby'];
         if(isset($_POST['search']))
           $searchterm=$_POST['search'];
+
+        $current = array("\\", "'", "\"");
+        $shouldb   = array("\\\\", "\'", "\\\"");
+        $newphrase = str_replace($current, $shouldb, $searchterm);
+        $searchterm = $newphrase;
         
         if($searchby=="orderid")
           $sqlquery.="WHERE order_id = $searchterm ";
