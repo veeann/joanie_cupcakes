@@ -107,6 +107,9 @@ button{
           if(isset($_POST['search']))
             $searchterm=$_POST['search'];
           
+          if (!preg_match('/[a-zA-Z0-9\s]+/', $searchterm))
+            $searchterm = "-";
+
           if($searchby=="employ")
             $sqlquery.="WHERE employee_id = $searchterm ";
           else if($searchby=="attend")
