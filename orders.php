@@ -104,7 +104,7 @@ button{
         if($searchby=="orderid")
           $sqlquery.="WHERE order_id = $searchterm ";
         else if($searchby=="orderda")
-          $sqlquery.="WHERE order_date = \"$searchterm\" ";
+          $sqlquery.="WHERE upper(order_date) LIKE upper(\"%$searchterm%\") ";
         else if($searchby=="custln")
           $sqlquery.="WHERE upper(customer_last_name) LIKE upper(\"%$searchterm%\") ";
         else if($searchby=="custfn")
@@ -147,3 +147,9 @@ button{
 
 </body>
 </html>
+
+<!--
+
+SELECT * FROM Order_t WHERE order_date BETWEEN given_date_from AND given_date_to ;
+
+  -->
