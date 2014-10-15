@@ -170,11 +170,21 @@ button{
             //get all payments
             $sqlquery="SELECT * FROM Payment_t WHERE pay_date BETWEEN '".$cdatefrom."' AND '".$cdateto."' ";
             $result=@mysqli_query($sqlconn, $sqlquery);
+            $importantcount = 0;
             while($row = @mysqli_fetch_array($result)) {
-              $totalincome = $totalincome + $row['price'];
-              $temp2.=("<tr><td>" . $row['pay_date'] . " </td><td> " . $row['price'] . " </td><td> " . $row['order_id'] . " </td></tr>");
+              $ordersid = $row['order_id'];
+              $sqlorder="SELECT * FROM Order_t WHERE order_id=$ordersid  ";
+              $orderstat=@mysqli_query($sqlconn, $sqlorder);
+              $statnow= @mysqli_fetch_array($orderstat);
+
+
+              if ($statnow['status']=="Finished") {
+                $importantcount = $importantcount + 1;
+                $totalincome = $totalincome + $row['price'];
+                $temp2.=("<tr><td>" . $row['pay_date'] . " </td><td> " . $row['price'] . " </td><td> " . $row['order_id'] . " </td></tr>");
+              }
             }
-            if (@mysqli_num_rows($result)==0) $temp2 = "</br>There was no income gained during the period.";
+            if ($importantcount==0) $temp2 = "</br>There was no income gained during the period.";
             else $temp2 .= "</table>";
 
             $profit = $totalincome - $totalexpenses;
