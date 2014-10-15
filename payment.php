@@ -105,21 +105,26 @@ button{
         else if($searchby=="ordid")
           $sqlquery.="WHERE order_id = $searchterm ";
         
-        $sqlquery.="ORDER BY pay_date DESC ";
-        $result=@mysqli_query($sqlconn, $sqlquery);
-        
-        if($result == false)
-          echo "No results found.";
+        if ($searchby=="payda" && !preg_match('/\d{4}-\d{2}-\d{2}/', $searchterm))
+          echo "Date Format must be: YYYY-MM-DD";
         else {
-          $temp="<table><tr><th>Payment ID</th><th>Pay Date</th><th>Price</th><th>Order ID</th></tr>";
-          while($row = @mysqli_fetch_array($result)){
-            $orderid=$row['payment_id'];
-            $temp.=("<tr onclick=\"redirect($orderid)\" ><td>" . $row['payment_id'] . " </td><td> " . $row['pay_date'] . " </td><td> " . $row['price'] . " </td><td> " . $row['order_id'] . "</td></tr>");
-          }
-          if(@mysqli_num_rows($result)==0)
+
+          $sqlquery.="ORDER BY pay_date DESC ";
+          $result=@mysqli_query($sqlconn, $sqlquery);
+          
+          if($result == false)
             echo "No results found.";
-          else
-            echo $temp . "</table>";
+          else {
+            $temp="<table><tr><th>Payment ID</th><th>Pay Date</th><th>Price</th><th>Order ID</th></tr>";
+            while($row = @mysqli_fetch_array($result)){
+              $orderid=$row['payment_id'];
+              $temp.=("<tr onclick=\"redirect($orderid)\" ><td>" . $row['payment_id'] . " </td><td> " . $row['pay_date'] . " </td><td> " . $row['price'] . " </td><td> " . $row['order_id'] . "</td></tr>");
+            }
+            if(@mysqli_num_rows($result)==0)
+              echo "No results found.";
+            else
+              echo $temp . "</table>";
+          }
         }
         
         @mysqli_close($sqlconn);
