@@ -107,8 +107,10 @@ button{
           if(isset($_POST['search']))
             $searchterm=$_POST['search'];
           
-          if (!preg_match('/[a-zA-Z0-9\s]+/', $searchterm))
-            $searchterm = "-";
+          $current = array("\\", "'", "\"");
+          $shouldb   = array("\\\\", "\'", "\\\"");
+          $nlast = str_replace($current, $shouldb, $searchterm);
+          $searchterm = $nlast;
 
           if($searchby=="employ")
             $sqlquery.="WHERE employee_id = $searchterm ";
@@ -121,23 +123,26 @@ button{
               $sqlquery.="WHERE employee_id=$userid AND signed_date = \"$searchterm\" ";
           }
 
-          $sqlquery.="ORDER BY attendance_id DESC ";
-
-
-          $result=@mysqli_query($sqlconn, $sqlquery);
-          
-          if($result == false)
-            echo "No results found.";
+          if ($searchby=="day" && !preg_match('/\d{4}-\d{2}-\d{2}/', $searchterm))
+            echo "Date Format must be: YYYY-MM-DD";
           else {
-            $temp="<table><tr><th>Attendance ID</th><th>Employee ID</th><th>Signed Date</th><th>Time In</th><th>Time Out</th></tr>";
-            while($row = @mysqli_fetch_array($result)){
-              $attendanceid=$row['attendance_id'];
-              $temp.=("<tr><td>" . $row['attendance_id'] . " </td><td> " . $row['employee_id'] . " </td><td> " . $row['signed_date'] . " </td><td> " . $row['time_in'] . "</td><td>" . $row['time_out'] . "</td></tr>");
-            }
-            if(@mysqli_num_rows($result)==0)
+            $sqlquery.="ORDER BY attendance_id DESC ";
+
+            $result=@mysqli_query($sqlconn, $sqlquery);
+            
+            if($result == false)
               echo "No results found.";
-            else
-              echo $temp . "</table>";
+            else {
+              $temp="<table><tr><th>Attendance ID</th><th>Employee ID</th><th>Signed Date</th><th>Time In</th><th>Time Out</th></tr>";
+              while($row = @mysqli_fetch_array($result)){
+                $attendanceid=$row['attendance_id'];
+                $temp.=("<tr><td>" . $row['attendance_id'] . " </td><td> " . $row['employee_id'] . " </td><td> " . $row['signed_date'] . " </td><td> " . $row['time_in'] . "</td><td>" . $row['time_out'] . "</td></tr>");
+              }
+              if(@mysqli_num_rows($result)==0)
+                echo "No results found.";
+              else
+                echo $temp . "</table>";
+            }
           }
           @mysqli_close($sqlconn);
         ?>
