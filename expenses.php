@@ -93,21 +93,26 @@ button{
         else if($searchby=="exda")
           $sqlquery.="WHERE expense_date = \"$searchterm\" ";
         
-        $sqlquery.="ORDER BY expense_date DESC ";
-        $result=@mysqli_query($sqlconn, $sqlquery);
-        
-        if($result == false)
-          echo "No results found.";
+        if ($searchby=="exda" && !preg_match('/\d{4}-\d{2}-\d{2}/', $searchterm))
+          echo "Date Format must be: YYYY-MM-DD";
         else {
-          $temp="<table><tr><th>Expense ID</th><th>Date</th><th>Price</th><th>Details</th></tr>";
-          while($row = @mysqli_fetch_array($result)){
-            $expenseid=$row['expense_id'];
-            $temp.=("<tr onclick=\"redirect($expenseid)\" ><td>" . $row['expense_id'] . " </td><td> " . $row['expense_date'] . " </td><td> " . $row['price'] . " </td><td> " . $row['details'] . "</td></tr>");
-          }
-          if(@mysqli_num_rows($result)==0)
+
+          $sqlquery.="ORDER BY expense_date DESC ";
+          $result=@mysqli_query($sqlconn, $sqlquery);
+          
+          if($result == false)
             echo "No results found.";
-          else
-            echo $temp . "</table>";
+          else {
+            $temp="<table><tr><th>Expense ID</th><th>Date</th><th>Price</th><th>Details</th></tr>";
+            while($row = @mysqli_fetch_array($result)){
+              $expenseid=$row['expense_id'];
+              $temp.=("<tr onclick=\"redirect($expenseid)\" ><td>" . $row['expense_id'] . " </td><td> " . $row['expense_date'] . " </td><td> " . $row['price'] . " </td><td> " . $row['details'] . "</td></tr>");
+            }
+            if(@mysqli_num_rows($result)==0)
+              echo "No results found.";
+            else
+              echo $temp . "</table>";
+          }
         }
         
         @mysqli_close($sqlconn);
