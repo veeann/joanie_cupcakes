@@ -104,6 +104,9 @@ button{
               $searchby=$_POST['searchby'];
             if(isset($_POST['search']))
               $searchterm=$_POST['search'];
+
+            if (!preg_match('/[a-zA-Z0-9\s]+/', $searchterm))
+              $searchterm = "-";
             
             if($searchby=="salarid")
               $sqlquery.="WHERE salary_expense_id = $searchterm ";
@@ -112,22 +115,26 @@ button{
               $dategiven = date("Y-m-d", $timegiven);
               $sqlquery.="WHERE (\"$dategiven\" BETWEEN date_from AND date_to) ";
             }
-
-            $sqlquery.="ORDER BY date_from DESC ";
-
-            $result=@mysqli_query($sqlconn, $sqlquery);
-            
-            if($result == false)
-              echo "No results found.";
+            if ($searchby=="day" && !preg_match('/\d{4}-\d{2}-\d{2}/', $searchterm))
+              echo "Date Format must be: YYYY-MM-DD";
             else {
-              $temp="<table><tr><th>Salary Expense ID</th><th>Date From</th><th>Date To</th><th>Total Salary</th></tr>";
-              while($row = @mysqli_fetch_array($result)){
-                $temp.=("<tr><td>" . $row['salary_expense_id'] . " </td><td> " . $row['date_from'] . " </td><td> " . $row['date_to'] . " </td><td> " . $row['total_salary'] . "</td></tr>");
-              }
-              if(@mysqli_num_rows($result)==0)
+
+              $sqlquery.="ORDER BY date_from DESC ";
+
+              $result=@mysqli_query($sqlconn, $sqlquery);
+              
+              if($result == false)
                 echo "No results found.";
-              else
-                echo $temp . "</table>";
+              else {
+                $temp="<table><tr><th>Salary Expense ID</th><th>Date From</th><th>Date To</th><th>Total Salary</th></tr>";
+                while($row = @mysqli_fetch_array($result)){
+                  $temp.=("<tr><td>" . $row['salary_expense_id'] . " </td><td> " . $row['date_from'] . " </td><td> " . $row['date_to'] . " </td><td> " . $row['total_salary'] . "</td></tr>");
+                }
+                if(@mysqli_num_rows($result)==0)
+                  echo "No results found.";
+                else
+                  echo $temp . "</table>";
+              }
             }
           }
           else {
