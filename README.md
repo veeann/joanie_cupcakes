@@ -1,4 +1,4 @@
-How to Set-up Website Project:
+How to Set-up Website:
 
 1. Find a web host. Make sure the server supports MySQL and PHP.
 2. PHP 5.3.28 or higher is recommended.
@@ -10,7 +10,15 @@ How to Set-up Website Project:
 8. The main page of your website is in 'index.php'.
 
 
-Notes on the website:
+How to Set-up Project:
 
-1. As a customer, ordering is the only thing you can actually do. You can also view the login page for employees.
-2. A normal Employee and an Administrator have different permissions.
+1. Make sure PHP and MySQL are installed in your computer.
+2. Make sure your computer has a local server.
+3. Otherwise, download any application server platform compatible with your OS.
+4. All files should be inside the same folder (for the sake of this isntruction, let us call is 'joanie').
+5. All photo (.png files) should be in a folder named 'images'.
+6. The folder 'images' should be inside the 'joanie' folder.
+7. Source the 'database.sql' file so that all required database and tables are created.
+8. Optionally, source the 'populate.sql' file so that you can fill the database with dummy data.
+7. Open 'index.php' with a browser, preferably Google Chrome.
+8. Explore the website.
