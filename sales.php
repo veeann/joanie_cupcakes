@@ -120,27 +120,32 @@ button{
               $sqlquery.="WHERE (\"$dategiven\" BETWEEN date_from AND date_to) ";
             }
 
-            $sqlquery.="ORDER BY date_to DESC ";
-
-            $result=@mysqli_query($sqlconn, $sqlquery);
-            
-            if($result == false)
-              echo "No results found.";
+            if ($searchby=="day" && !preg_match('/\d{4}-\d{2}-\d{2}/', $searchterm))
+              echo "Date Format must be: YYYY-MM-DD";
             else {
-              $temp="<table><tr><th>Report ID</th><th>Date From</th><th>Date To</th><th>Gross Income</th><th>Total Expenses</th><th>Profit</th></tr>";
-              while($row = @mysqli_fetch_array($result)){
-                $totalincome = $totalincome + $row['gross_income'];
-                $totalexpenses = $totalexpenses + $row['total_expenses'];
-                $temp.=("<tr><td>" . $row['report_id'] . " </td><td> " . $row['date_from'] . " </td><td> " . $row['date_to'] . " </td><td> " . $row['gross_income'] . "</td><td> " . $row['total_expenses'] . "</td><td> " . $row['net_income'] . "</td></tr>");
-              }
-              $profit = $totalincome - $totalexpenses;
-              if(@mysqli_num_rows($result)==0)
+
+              $sqlquery.="ORDER BY date_to DESC ";
+
+              $result=@mysqli_query($sqlconn, $sqlquery);
+              
+              if($result == false)
                 echo "No results found.";
               else {
-                echo "Gross Income: $totalincome</br>";
-                echo "Total Expenses: $totalexpenses</br>";
-                echo "Net Profit: $profit</br></br>";
-                echo $temp . "</table>";
+                $temp="<table><tr><th>Report ID</th><th>Date From</th><th>Date To</th><th>Gross Income</th><th>Total Expenses</th><th>Profit</th></tr>";
+                while($row = @mysqli_fetch_array($result)){
+                  $totalincome = $totalincome + $row['gross_income'];
+                  $totalexpenses = $totalexpenses + $row['total_expenses'];
+                  $temp.=("<tr><td>" . $row['report_id'] . " </td><td> " . $row['date_from'] . " </td><td> " . $row['date_to'] . " </td><td> " . $row['gross_income'] . "</td><td> " . $row['total_expenses'] . "</td><td> " . $row['net_income'] . "</td></tr>");
+                }
+                $profit = $totalincome - $totalexpenses;
+                if(@mysqli_num_rows($result)==0)
+                  echo "No results found.";
+                else {
+                  echo "Gross Income: $totalincome</br>";
+                  echo "Total Expenses: $totalexpenses</br>";
+                  echo "Net Profit: $profit</br></br>";
+                  echo $temp . "</table>";
+                }
               }
             }
           }
