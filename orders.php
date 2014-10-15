@@ -116,22 +116,27 @@ button{
         else if($searchby=="orderst")
           $sqlquery.="WHERE upper(status) LIKE upper(\"%$searchterm%\") ";
         
-        $sqlquery.="ORDER BY order_date DESC ";
-
-        $result=@mysqli_query($sqlconn, $sqlquery);
-        
-        if($result == false)
-          echo "No results found.";
+        if ($searchby=="orderda" && !preg_match('/\d{4}-\d{2}-\d{2}/', $searchterm))
+          echo "Date Format must be: YYYY-MM-DD";
         else {
-          $temp="<table><tr><th>Order ID</th><th>Date</th><th>Last Name</th><th>First Name</th><th>Email</th><th>Contact Number</th><th>Details</th><th>Price</th><th>Status</th></tr>";
-          while($row = @mysqli_fetch_array($result)){
-            $orderid=$row['order_id'];
-            $temp.=("<tr onclick=\"redirect($orderid)\" ><td>" . $row['order_id'] . " </td><td> " . $row['order_date'] . " </td><td> " . $row['customer_last_name'] . " </td><td> " . $row['customer_first_name'] . "</td><td>" . $row['customer_email'] . "</td><td>" . $row['customer_contact_number'] . "</td><td>" . $row['details'] . " </td><td>" . $row['price'] . " </td><td>" . $row['status'] . " </td></tr>");
-          }
-          if(@mysqli_num_rows($result)==0)
+
+          $sqlquery.="ORDER BY order_date DESC ";
+
+          $result=@mysqli_query($sqlconn, $sqlquery);
+          
+          if($result == false)
             echo "No results found.";
-          else
-            echo $temp . "</table>";
+          else {
+            $temp="<table><tr><th>Order ID</th><th>Date</th><th>Last Name</th><th>First Name</th><th>Email</th><th>Contact Number</th><th>Details</th><th>Price</th><th>Status</th></tr>";
+            while($row = @mysqli_fetch_array($result)){
+              $orderid=$row['order_id'];
+              $temp.=("<tr onclick=\"redirect($orderid)\" ><td>" . $row['order_id'] . " </td><td> " . $row['order_date'] . " </td><td> " . $row['customer_last_name'] . " </td><td> " . $row['customer_first_name'] . "</td><td>" . $row['customer_email'] . "</td><td>" . $row['customer_contact_number'] . "</td><td>" . $row['details'] . " </td><td>" . $row['price'] . " </td><td>" . $row['status'] . " </td></tr>");
+            }
+            if(@mysqli_num_rows($result)==0)
+              echo "No results found.";
+            else
+              echo $temp . "</table>";
+          }
         }
         
         @mysqli_close($sqlconn);
